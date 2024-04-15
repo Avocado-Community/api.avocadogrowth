@@ -1,3 +1,5 @@
+import User from '#models/user'
+import SessionService from '#services/session_service'
 import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 
@@ -135,5 +137,18 @@ test.group('Register store', (group) => {
         },
       ],
     })
+  })
+
+  test('ensure session service return the user', async ({ assert }) => {
+    const sessionService = new SessionService()
+    const user = await sessionService.store({
+      email: 'test@example.fr',
+      password: 'password',
+      first_name: 'John',
+      last_name: 'Doe',
+    })
+
+    assert.exists(user.id)
+    assert.instanceOf(user, User)
   })
 })
