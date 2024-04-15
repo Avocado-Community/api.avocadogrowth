@@ -11,7 +11,7 @@ export default class SessionController {
 
   async store({ request, response, auth }: HttpContext) {
     // validate the request
-    const payload = await createSessionValidator.validate(request.all())
+    const payload = await request.validateUsing(createSessionValidator)
 
     // create a new user
     const user = await this.sessionService.store(payload)
@@ -20,6 +20,8 @@ export default class SessionController {
     await auth.use('web').login(user)
 
     // return the user
-    return response.status(201).json(user)
+    return response.status(201).json({
+      message: 'User registered successfully',
+    })
   }
 }
