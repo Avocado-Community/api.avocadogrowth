@@ -1,7 +1,7 @@
 // import type { HttpContext } from '@adonisjs/core/http'
 
 import SessionService from '#services/session_service'
-import { createSessionValidator } from '#validators/session'
+import { createSessionValidator } from '#validators/session_validator'
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 
