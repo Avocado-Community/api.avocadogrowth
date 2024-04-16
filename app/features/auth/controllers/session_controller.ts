@@ -37,4 +37,16 @@ export default class SessionController {
       message: 'User registered successfully',
     })
   }
+
+  async showMe({ response, auth }: HttpContext) {
+    try {
+      const AuthUser = await this.userService.getAuthUser(auth)
+      return response.status(200).json(AuthUser)
+    }
+    catch (error) {
+      return response.status(401).json({
+        message: 'Unauthorized',
+      })
+    }
+  }
 }
