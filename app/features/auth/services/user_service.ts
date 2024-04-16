@@ -12,9 +12,9 @@ export default class UserService {
   constructor(protected userRepository: UserRepository) {}
 
   /**
-   * Allow to create a new user and return it
+   * Call the repository to create a new user
    * @param payload UserServiceCreatePayload - The payload to create a new user
-   * @returns User
+   * @returns Promise<User> - The created user
    */
   async create(payload: UserServiceCreatePayload): Promise<User> {
     // create a new use

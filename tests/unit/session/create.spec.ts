@@ -1,7 +1,7 @@
 import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 
-test.group('Register store', (group) => {
+test.group('Register create', (group) => {
   group.each.setup(() => testUtils.db().truncate())
 
   test('ensure user can register', async ({ client }) => {

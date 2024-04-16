@@ -1,7 +1,7 @@
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
 /**
- * Validates the post's creation action
+ * Validates the user's creation action
  */
 export const createSessionValidator = vine.compile(
   vine.object({

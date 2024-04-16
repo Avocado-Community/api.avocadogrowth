@@ -4,6 +4,10 @@ import SessionService from '../services/session_service.js'
 import UserService from '../services/user_service.js'
 import { createSessionValidator } from '../validators/session_validator.js'
 
+/**
+ * SessionController class to handle the session logic and interact with the services
+ * @method create - Allow to create a new user and session
+ */
 @inject()
 export default class SessionController {
   constructor(
