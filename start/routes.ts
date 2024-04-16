@@ -9,7 +9,8 @@
 
 import router from '@adonisjs/core/services/router'
 
-// controller imports
+// controller imports -> lazy loaded
 const SessionController = () => import('../app/features/auth/controllers/session_controller.js')
 
+// Routes
 router.post('/register', [SessionController, 'create']).as('register')
