@@ -10,6 +10,6 @@
 import router from '@adonisjs/core/services/router'
 
 // controller imports
-const SessionController = () => import('#controllers/session_controller')
+const SessionController = () => import('../app/auth/controllers/session_controller.js')
 
-router.post('/register', [SessionController, 'store'])
+router.post('/register', [SessionController, 'create']).as('register')
