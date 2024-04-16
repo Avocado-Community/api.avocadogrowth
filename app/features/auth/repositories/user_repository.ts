@@ -3,7 +3,7 @@ import UserRepositoryInterface from '../interfaces/user_repository_interface.js'
 import { UserServiceCreatePayload } from '../types/user.js'
 
 /**
- * UserRepository class to handle the user logic and interact with the database
+ * UserRepository class to interact with the User model (DAO)
  * @method create - Allow to create a new user
  * @extends UserRepositoryInterface
  */
