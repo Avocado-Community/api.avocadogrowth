@@ -38,6 +38,12 @@ export default class SessionController {
     })
   }
 
+  /**
+   * Show the current user
+   * @param response HttpContext - The HTTP response
+   * @param auth HttpContext - The HTTP auth
+   * @returns Promise - The response
+   */
   async showMe({ response, auth }: HttpContext) {
     try {
       const AuthUser = await this.userService.getAuthUser(auth)

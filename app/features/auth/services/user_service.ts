@@ -23,6 +23,11 @@ export default class UserService {
     return this.userRepository.create(payload)
   }
 
+  /**
+   * Get the authenticated user
+   * @param auth any - The auth to use
+   * @returns Promise<AuthUser> - The authenticated user
+   */
   async getAuthUser(auth: any): Promise<AuthUser> {
     try {
       return this.userRepository.getAuthUser(auth)

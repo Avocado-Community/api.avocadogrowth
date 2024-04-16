@@ -19,11 +19,16 @@ export default class UserRepository implements UserRepositoryInterface {
     return User.create(payload)
   }
 
+  /**
+   * Get the authenticated user
+   * @param auth Authenticator<Authenticators> - The authenticator to use
+   * @returns Promise<AuthUser> - The authenticated user
+   * @throws Error
+   */
   async getAuthUser(auth: Authenticator<Authenticators>): Promise<AuthUser>{
     let userId;
     try {
-      await auth.authenticate()
-      userId = auth.user!.id
+      userId = auth.getUserOrFail().id
       const user = await User.query().where('id', userId).firstOrFail()
       return {
         first_name: user.first_name,
