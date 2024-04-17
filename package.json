@@ -1,9 +1,9 @@
 {
-  "name": "hello-world",
+  "name": "api.avocadogrowth",
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "license": "UNLICENSED",
+  "license": "GPLv3",
   "scripts": {
     "start": "node bin/server.js",
     "build": "node ace build",

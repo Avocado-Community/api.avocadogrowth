@@ -29,10 +29,6 @@ export default class UserService {
    * @returns Promise<AuthUser> - The authenticated user
    */
   async getAuthUser(auth: any): Promise<AuthUser> {
-    try {
-      return this.userRepository.getAuthUser(auth)
-    } catch (error) {
-      throw error
-    }
+    return this.userRepository.getAuthUser(auth)
   }
 }

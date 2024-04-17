@@ -26,18 +26,11 @@ export default class UserRepository implements UserRepositoryInterface {
    * @throws Error
    */
   async getAuthUser(auth: Authenticator<Authenticators>): Promise<AuthUser>{
-    let userId;
-    try {
-      userId = auth.getUserOrFail().id
-      const user = await User.query().where('id', userId).firstOrFail()
-      return {
+    const user = auth.getUserOrFail()
+    return {
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
-      }
-
-    } catch (error) {
-      throw error
     }
   }
 }

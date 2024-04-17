@@ -11,7 +11,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - 8080:5432
+      - "8080:5432"
 
   # adonis_app:
   #   container_name: adonis_app

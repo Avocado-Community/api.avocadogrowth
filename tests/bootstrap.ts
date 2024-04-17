@@ -4,6 +4,7 @@ import testUtils from '@adonisjs/core/services/test_utils'
 import { apiClient } from '@japa/api-client'
 import { assert } from '@japa/assert'
 import { pluginAdonisJS } from '@japa/plugin-adonisjs'
+import {authApiClient}  from "@adonisjs/auth/plugins/api_client";
 import type { Config } from '@japa/runner/types'
 
 /**
@@ -20,6 +21,7 @@ export const plugins: Config['plugins'] = [
     baseURL: `http://${env.get('HOST')}:3333`,
   }),
   pluginAdonisJS(app),
+  authApiClient(app),
 ]
 
 /**
@@ -47,7 +49,7 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
  * Learn more - https://japa.dev/docs/test-suites#lifecycle-hooks
  */
 export const configureSuite: Config['configureSuite'] = (suite) => {
-  if (['browser', 'functional', 'e2e'].includes(suite.name)) {
+  if (suite.name === 'functional') {
     return suite.setup(() => testUtils.httpServer().start())
   }
 }
