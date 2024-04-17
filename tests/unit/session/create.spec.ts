@@ -1,7 +1,15 @@
+import User from '#models/user'
 import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 
-test.group('Register create', (group) => {
+const user = {
+  email: 'test@example.com',
+  password: 'password',
+  first_name: 'John',
+  last_name: 'Doe',
+}
+
+test.group('Session create', (group) => {
   group.each.setup(() => testUtils.db().truncate())
 
   test('ensure user can register', async ({ client }) => {
@@ -132,6 +140,32 @@ test.group('Register create', (group) => {
           message: 'The password field must be defined',
           rule: 'required',
           field: 'password',
+        },
+      ],
+    })
+  })
+})
+
+test.group('Session destroy', () => {
+  test('ensure user can logout', async ({ client }) => {
+    // todo : wait https://github.com/adonisjs/core/issues/4527
+    const connectedUser = await User.create(user)
+    const response = await client.delete('/logout').loginAs(connectedUser)
+
+    response.assertStatus(200)
+    response.assertBodyContains({
+      message: 'User logged out successfully',
+    })
+  })
+
+  test('ensure user cannot logout if not authenticated', async ({ client }) => {
+    const response = await client.delete('/logout')
+
+    response.assertStatus(401)
+    response.assertBodyContains({
+      errors: [
+        {
+          message: 'Unauthorized access',
         },
       ],
     })

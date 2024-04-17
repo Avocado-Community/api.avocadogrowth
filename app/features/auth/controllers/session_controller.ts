@@ -37,4 +37,19 @@ export default class SessionController {
       message: 'User registered successfully',
     })
   }
+
+  /**
+   * Destroy a session
+   * @param response HttpContext - The HTTP response
+   * @param auth HttpContext - The HTTP auth
+   * @returns The response
+   */
+  async destroy({ response, auth }: HttpContext) {
+    // destroy the session
+    await this.sessionService.destroy(auth)
+
+    return response.status(200).json({
+      message: 'User logged out successfully',
+    })
+  }
 }
