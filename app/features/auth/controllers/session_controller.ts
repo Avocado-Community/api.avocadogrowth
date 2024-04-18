@@ -45,7 +45,12 @@ export default class SessionController {
    * @returns Promise - The response
    */
   async showMe({ response, auth }: HttpContext) {
-    const AuthUser = await this.userService.getAuthUser(auth)
-    return response.status(200).json(AuthUser)
+    const AuthUser = auth.user
+    if (AuthUser) {
+      return response.status(200).json(AuthUser)
+    }
+    return response.status(401).json({
+      message: 'Unauthorized',
+    })
   }
 }

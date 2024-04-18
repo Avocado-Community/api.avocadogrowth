@@ -1,8 +1,7 @@
 import User from '#models/user'
 import UserRepositoryInterface from '../interfaces/user_repository_interface.js'
-import {AuthUser, UserServiceCreatePayload} from '../types/user.js'
-import {Authenticator} from "@adonisjs/auth";
-import {Authenticators} from "@adonisjs/auth/types";
+import {UserServiceCreatePayload} from '../types/user.js'
+
 
 /**
  * UserRepository class to interact with the User model (DAO)
@@ -17,20 +16,5 @@ export default class UserRepository implements UserRepositoryInterface {
    */
   async create(payload: UserServiceCreatePayload): Promise<User> {
     return User.create(payload)
-  }
-
-  /**
-   * Get the authenticated user
-   * @param auth Authenticator<Authenticators> - The authenticator to use
-   * @returns Promise<AuthUser> - The authenticated user
-   * @throws Error
-   */
-  async getAuthUser(auth: Authenticator<Authenticators>): Promise<AuthUser>{
-    const user = auth.getUserOrFail()
-    return {
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-    }
   }
 }

@@ -157,9 +157,13 @@ test.group('Authentication Protection', (group) => {
     // verify it can access the protected route
     response.assertStatus(200)
     response.assertBodyContains({
-      email: user.email,
-      first_name: user.first_name,
-      last_name: user.last_name,
+      createdAt: user.createdAt.toLocaleString(),
+      email: userPayload.email,
+      firstName: userPayload.first_name,
+      lastName: userPayload.last_name,
+      id: user.id,
+      password: user.password,
+      updatedAt: user.updatedAt!.toLocaleString(),
     })
   })
 

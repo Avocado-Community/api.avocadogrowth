@@ -1,5 +1,5 @@
 import User from '#models/user'
-import { UserServiceCreatePayload, AuthUser } from '../types/user.js'
+import { UserServiceCreatePayload } from '../types/user.js'
 
 
 /**
@@ -7,5 +7,4 @@ import { UserServiceCreatePayload, AuthUser } from '../types/user.js'
  */
 export default abstract class UserRepositoryInterface {
   abstract create(payload: UserServiceCreatePayload): Promise<User>
-  abstract getAuthUser(auth: any): Promise<AuthUser>
 }

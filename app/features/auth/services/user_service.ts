@@ -1,7 +1,6 @@
 import User from '#models/user'
 import { inject } from '@adonisjs/core'
 import UserRepository from '../repositories/user_repository.js'
-import {AuthUser, UserServiceCreatePayload} from '../types/user.js'
 
 
 /**
@@ -21,14 +20,5 @@ export default class UserService {
   async create(payload: UserServiceCreatePayload): Promise<User> {
     // create a new use
     return this.userRepository.create(payload)
-  }
-
-  /**
-   * Get the authenticated user
-   * @param auth any - The auth to use
-   * @returns Promise<AuthUser> - The authenticated user
-   */
-  async getAuthUser(auth: any): Promise<AuthUser> {
-    return this.userRepository.getAuthUser(auth)
   }
 }
