@@ -148,7 +148,6 @@ test.group('Session create', (group) => {
 
 test.group('Session destroy', () => {
   test('ensure user can logout', async ({ client }) => {
-    // todo : wait https://github.com/adonisjs/core/issues/4527
     const connectedUser = await User.create(user)
     const response = await client.delete('/logout').loginAs(connectedUser)
 
