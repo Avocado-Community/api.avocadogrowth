@@ -16,7 +16,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
   async handle(error: unknown, ctx: HttpContext) {
     if (error instanceof authErrors.E_UNAUTHORIZED_ACCESS) {
       ctx.response.status(401).send({
-        message: 'Unauthorized access',
+        message: "Unauthorized access",
       })
     }
     return super.handle(error, ctx)

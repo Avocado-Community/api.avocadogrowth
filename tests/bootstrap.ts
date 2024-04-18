@@ -6,6 +6,7 @@ import { assert } from '@japa/assert'
 import { pluginAdonisJS } from '@japa/plugin-adonisjs'
 import {authApiClient}  from "@adonisjs/auth/plugins/api_client";
 import type { Config } from '@japa/runner/types'
+import {sessionApiClient} from "@adonisjs/session/plugins/api_client";
 
 /**
  * This file is imported by the "bin/test.ts" entrypoint file
@@ -18,9 +19,10 @@ import type { Config } from '@japa/runner/types'
 export const plugins: Config['plugins'] = [
   assert(),
   apiClient({
-    baseURL: `http://${env.get('HOST')}:3333`,
+    baseURL: `http://${env.get('HOST')}:${env.get('PORT')}`,
   }),
   pluginAdonisJS(app),
+  sessionApiClient(app),
   authApiClient(app),
 ]
 
