@@ -3,7 +3,6 @@ import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
 import UserRepository from '../../../app/features/auth/repositories/user_repository.js'
 import UserService from '../../../app/features/auth/services/user_service.js'
-import testUtils from "@adonisjs/core/services/test_utils";
 
 test.group('User create', (group) => {
   group.each.setup(() => testUtils.db().truncate())

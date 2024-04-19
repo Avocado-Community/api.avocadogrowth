@@ -1,6 +1,4 @@
 import env from '#start/env'
-import { authApiClient } from '@adonisjs/auth/plugins/api_client'
-import { sessionApiClient } from '@adonisjs/session/plugins/api_client'
 import app from '@adonisjs/core/services/app'
 import testUtils from '@adonisjs/core/services/test_utils'
 import { apiClient } from '@japa/api-client'
