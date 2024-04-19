@@ -14,7 +14,8 @@ import { middleware } from './kernel.js'
 const SessionController = () => import('../app/features/auth/controllers/session_controller.js')
 
 // Routes
-router.post('/register', [SessionController, 'create']).as('register')
+router.post('/register', [SessionController, 'register']).as('register')
+router.post('/login', [SessionController, 'login']).as('login')
 
 // Auth routes
 router
