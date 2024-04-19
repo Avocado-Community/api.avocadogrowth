@@ -9,7 +9,7 @@ const user = {
   last_name: 'Doe',
 }
 
-test.group('Register create', (group) => {
+test.group('Session create', (group) => {
   // Setup and teardown functions are called before and after each test in the group
   group.each.setup(() => testUtils.db().truncate())
 
