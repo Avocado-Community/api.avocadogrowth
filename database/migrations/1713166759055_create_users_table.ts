@@ -19,8 +19,6 @@ export default class UserSchema extends BaseSchema {
       table.json('urls').nullable()
       table.string('profile_picture').nullable()
       table.integer('is_mentor').nullable().references('mentors.id').onDelete('RESTRICT')
-      table.integer('mentors').nullable().references('users.id').onDelete('RESTRICT')
-      table.integer('learning_stacks').nullable().references('stacks.id').onDelete('RESTRICT')
 
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()
