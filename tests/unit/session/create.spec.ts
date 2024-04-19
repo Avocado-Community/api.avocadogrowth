@@ -235,4 +235,36 @@ test.group('Login create', (group) => {
       ],
     })
   })
+
+  test('ensure user cannot login with invalid password credentials', async ({ client }) => {
+    const response = await client.post('/login').json({
+      email: user.email,
+      password: 'wrong_password',
+    })
+
+    response.assertStatus(400)
+    response.assertBodyContains({
+      errors: [
+        {
+          message: 'Invalid user credentials',
+        },
+      ],
+    })
+  })
+
+  test('ensure user cannot login with invalid email credentials', async ({ client }) => {
+    const response = await client.post('/login').json({
+      email: 'toto@example.fr',
+      password: user.password,
+    })
+
+    response.assertStatus(400)
+    response.assertBodyContains({
+      errors: [
+        {
+          message: 'Invalid user credentials',
+        },
+      ],
+    })
+  })
 })
