@@ -14,5 +14,13 @@ import router from '@adonisjs/core/services/router'
 const SessionController = () => import('../app/features/auth/controllers/session_controller.js')
 
 // Routes
-router.post('/register', [SessionController, 'create']).as('register')
-router.get('/me', [SessionController, 'showMe']).as('me').use(middleware.auth())
+router.post('/register', [SessionController, 'register']).as('register')
+router.post('/login', [SessionController, 'login']).as('login')
+
+// Auth routes
+router
+  .group(() => {
+    router.delete('/logout', [SessionController, 'destroy']).as('logout')
+    router.get('/me', [SessionController, 'showMe'])
+  })
+  .use(middleware.auth())
