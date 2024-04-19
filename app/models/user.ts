@@ -24,7 +24,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare last_name: string
 
   @column()
-  declare username: string | null
+  declare user_name: string | null
 
   @column()
   declare email: string
@@ -56,12 +56,11 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @hasOne(() => Mentor)
   declare isMentor: relations.HasOne<typeof Mentor>
 
-  @hasMany(() => User)
-  declare mentors: relations.HasMany<typeof User>
+  @manyToMany(() => Mentor)
+  declare mentors: relations.ManyToMany<typeof Mentor>
 
-  @hasMany(() => Stack)
-  declare learningStacks: relations.HasMany<typeof Stack>
-
+  @manyToMany(() => Stack)
+  declare learningStacks: relations.ManyToMany<typeof Stack>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

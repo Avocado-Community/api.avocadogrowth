@@ -13,15 +13,15 @@ export default class Request extends BaseModel {
   @column()
   declare content: string
 
-  @column.dateTime({autoCreate: true})
-  declare createdAt: DateTime
-
   @hasOne(() => User)
   declare from: relations.HasOne<typeof User>
-
+  
   @hasOne(() => User)
   declare to : relations.HasOne<typeof User>
 
-  @hasMany(() => Stack)
-  declare stacks : relations.HasMany<typeof Stack>
+  @manyToMany(() => Stack)
+  declare stacks : relations.ManyToMany<typeof Stack>
+
+  @column.dateTime({autoCreate: true})
+  declare createdAt: DateTime
 }

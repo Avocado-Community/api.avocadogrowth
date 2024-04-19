@@ -21,10 +21,10 @@ export default class Mentor extends BaseModel {
 
   @hasMany(() => Comments)
   declare comments: relations.HasMany<typeof Comments>
+  
+  @manyToMany(() => User)
+  declare mentees: relations.ManyToMany<typeof User>
 
-  @hasMany(() => User)
-  declare mentees: relations.HasMany<typeof User>
-
-  @hasMany(() => Stack)
-  declare stacks: relations.HasMany<typeof Stack>;
+  @manyToMany(() => Stack)
+  declare stacks: relations.ManyToMany<typeof Stack>;
 }

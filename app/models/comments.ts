@@ -19,8 +19,8 @@ export default class Comments extends BaseModel {
   @column.dateTime({autoCreate: true})
   declare createdAt: DateTime
 
-  @hasMany(() => Stack)
-  declare stacks: relations.HasMany<typeof Stack>
+  @manyToMany(() => Stack)
+  declare stacks: relations.ManyToMany<typeof Stack>
 
   @hasOne(() => User)
   declare from: relations.HasOne<typeof User>
