@@ -1,8 +1,11 @@
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { compose } from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import {BaseModel, column, hasMany, hasOne} from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
+import Stack from "#models/stacks";
+import * as relations from "@adonisjs/lucid/types/relations";
+import Mentor from "#models/mentors";
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -10,7 +13,8 @@ const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
 })
 
 export default class User extends compose(BaseModel, AuthFinder) {
-  @column({ isPrimary: true })
+  static table = "users"
+  @column({isPrimary: true})
   declare id: number
 
   @column()
@@ -20,10 +24,44 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare last_name: string
 
   @column()
-  declare email: string
+  declare username: string | null
 
   @column()
+  declare email: string
+
+  @column({serializeAs: null})
   declare password: string
+
+  @column()
+  declare gender: string | null
+
+  @column()
+  declare age: number | null
+
+  @column()
+  declare onlineStatus: boolean
+
+  @column()
+  declare isBanned: boolean
+
+  @column()
+  declare bio: string | null
+
+  @column()
+  declare urls: JSON | null
+
+  @column()
+  declare profilePicture: string | null
+
+  @hasOne(() => Mentor)
+  declare isMentor: relations.HasOne<typeof Mentor>
+
+  @hasMany(() => User)
+  declare mentors: relations.HasMany<typeof User>
+
+  @hasMany(() => Stack)
+  declare learningStacks: relations.HasMany<typeof Stack>
+
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
