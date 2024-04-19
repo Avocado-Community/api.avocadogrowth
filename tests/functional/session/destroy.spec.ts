@@ -1,5 +1,6 @@
 import { test } from '@japa/runner'
 import User from '#models/user'
+import testUtils from '@adonisjs/core/services/test_utils'
 
 const user = {
   email: 'test@example.com',
@@ -8,7 +9,8 @@ const user = {
   last_name: 'Doe',
 }
 
-test.group('Session destroy', () => {
+test.group('Session destroy', (group) => {
+  group.each.setup(() => testUtils.db().truncate())
   test('ensure user can logout', async ({ client }) => {
     const connectedUser = await User.create(user)
     const response = await client.delete('/logout').loginAs(connectedUser)
