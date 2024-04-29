@@ -4,7 +4,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import SessionService from '../services/session_service.js'
 import UserService from '../services/user_service.js'
 import { createSessionValidator, showSessionValidator } from '../validators/session_validator.js'
-import TwoFactorAuthController from "./two_factors_controller.js";
+import TwoFactorAuthController from './two_factors_controller.js'
 
 /**
  * SessionController class to handle the session logic and interact with the services
@@ -56,11 +56,14 @@ export default class SessionController {
     const user = await User.verifyCredentials(payload.email, payload.password)
 
     if (user.hasEnalble2fa) {
-      const isValid = await TwoFactorAuthController.verify(auth, request, response)
-      /*
-      TODO: verify how to handle 2FA verification with 2FA routes.
-      TODO: Ensure that this cannot be handle in another way.
-       */
+      // if no otp provided, ask for otp with a 204 status
+      if (!request.all().otp) {
+        return response.noContent()
+
+      // if otp provided, verify the otp
+      } else {
+        await new TwoFactorAuthController().verify(<HttpContext>{ auth, request, response })
+      }
     }
     // create a new session
     await this.sessionService.create(user, auth)

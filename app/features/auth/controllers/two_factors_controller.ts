@@ -3,6 +3,7 @@ import type { HttpContext} from "@adonisjs/core/http";
 
 import { verifyOtpValidator} from "../validators/verify_otp.js";
 import {DateTime} from "luxon";
+import QRCode from "qrcode";
 
 export default class TwoFactorAuthController {
   async generate({ auth }: HttpContext) {
@@ -12,8 +13,7 @@ export default class TwoFactorAuthController {
     user.twoFactorSecret = twoFactorAuth.generateSecret(user.email)
 
     await user.save()
-
-    return user.twoFactorSecret
+    return QRCode.toDataURL(user.twoFactorSecret.uri)
   }
 
   async disable({ auth, response}: HttpContext) {
@@ -34,7 +34,6 @@ export default class TwoFactorAuthController {
     const { otp } = await request.validateUsing(verifyOtpValidator)
 
     const user = auth.user!
-
 
     const isValid = twoFactorAuth.verifyToken(
       user.twoFactorSecret?.secret,
