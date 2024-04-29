@@ -20,6 +20,9 @@ dependencies:
   '@adonisjs/session':
     specifier: ^7.4.0
     version: 7.4.0(@adonisjs/core@6.6.0)(@japa/api-client@2.0.3)
+  '@nulix/adonis-2fa':
+    specifier: ^1.0.0
+    version: 1.0.0(@adonisjs/core@6.6.0)
   '@vinejs/vine':
     specifier: ^1.8.0
     version: 1.8.0
@@ -779,6 +782,16 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
+
+  /@nulix/adonis-2fa@1.0.0(@adonisjs/core@6.6.0):
+    resolution: {integrity: sha512-uTzEHXIHQZgFj3b7Zg5krZZpIdIWW4/qJYvxUpJdNRNUYbTVPuj8QjJFTgv682YE20xNPqwpvuUVx3E6AJeCZA==}
+    engines: {node: '>=18.16.0'}
+    peerDependencies:
+      '@adonisjs/core': ^6.2.0
+    dependencies:
+      '@adonisjs/core': 6.6.0(@adonisjs/assembler@7.4.0)(@vinejs/vine@1.8.0)
+      node-2fa: 2.0.3
+    dev: false
 
   /@paralleldrive/cuid2@2.2.2:
     resolution: {integrity: sha512-ZOBkgDwEdoYVlSeRbYYXs0S9MejQofiVYoTbKzy/6GQa39/q5tQU2IX46+shYnUkpEl3wc+J6wRlar7r2EK2xA==}

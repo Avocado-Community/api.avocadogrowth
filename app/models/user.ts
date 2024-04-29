@@ -7,6 +7,7 @@ import Stack from "#models/stacks";
 import * as relations from "@adonisjs/lucid/types/relations";
 import Mentor from "#models/mentors";
 import encryption from "@adonisjs/core/services/encryption";
+import {TwoFactorSecret} from "@nulix/adonis-2fa/types";
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -76,16 +77,16 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
     consume: (value: string) => (value ? encryption.decrypt(value) : null),
   })
-  declare twoFactorSecret: string | null
+  declare twoFactorSecret: TwoFactorSecret | null
 
   @column({
     serializeAs: null,
 
-    prepare: (value: string | null) => (value ? encryption.encrypt(JSON.stringify(value)) : null),
+    prepare: (value: string[]) => encryption.encrypt(value),
 
-    consume: (value: string) => (value ? JSON.parse(encryption.decrypt(value)!) : null),
+    consume: (value: string) => (value ? encryption.decrypt(value) : []),
   })
-  declare twoFactorRecoveryCodes: string[] | null
+  declare twoFactorRecoveryCodes: string[]
 
   @column.dateTime()
   declare twoFactorConfirmedAt: DateTime | null

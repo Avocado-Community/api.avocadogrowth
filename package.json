@@ -56,6 +56,7 @@
     "@adonisjs/cors": "^2.2.1",
     "@adonisjs/lucid": "^20.1.0",
     "@adonisjs/session": "^7.4.0",
+    "@nulix/adonis-2fa": "^1.0.0",
     "@vinejs/vine": "^1.8.0",
     "luxon": "^3.4.4",
     "node-2fa": "^2.0.3",
