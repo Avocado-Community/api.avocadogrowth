@@ -1,11 +1,12 @@
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { compose } from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
-import {BaseModel, column, hasMany, hasOne} from '@adonisjs/lucid/orm'
+import {BaseModel, column, hasOne, manyToMany} from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 import Stack from "#models/stacks";
 import * as relations from "@adonisjs/lucid/types/relations";
 import Mentor from "#models/mentors";
+import encryption from "@adonisjs/core/services/encryption";
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -67,4 +68,32 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+
+  @column({
+    serializeAs: null,
+
+    prepare: (value: string | null) => (value ? encryption.encrypt(value) : null),
+
+    consume: (value: string) => (value ? encryption.decrypt(value) : null),
+  })
+  declare twoFactorSecret: string | null
+
+  @column({
+    serializeAs: null,
+
+    prepare: (value: string | null) => (value ? encryption.encrypt(JSON.stringify(value)) : null),
+
+    consume: (value: string) => (value ? JSON.parse(encryption.decrypt(value)!) : null),
+  })
+  declare twoFactorRecoveryCodes: string[] | null
+
+  @column.dateTime()
+  declare twoFactorConfirmedAt: DateTime | null
+
+
+  public get hasEnalble2fa(): boolean {
+    return !!this.twoFactorSecret && !!this.twoFactorConfirmedAt
+  }
 }
+
+

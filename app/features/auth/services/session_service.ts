@@ -9,7 +9,7 @@ import { Authenticators } from '@adonisjs/auth/types'
  */
 export default class SessionService {
   /**
-   * Allow to create a new user and return it
+   * Allow to create a session for user and return it
    * @param user User - The user to create a session for
    * @param auth Authenticator<Authenticators> - The authenticator to use
    * @return void

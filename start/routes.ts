@@ -23,3 +23,4 @@ router
     router.delete('/logout', [SessionController, 'destroy']).as('logout')
   })
   .use(middleware.auth())
+
